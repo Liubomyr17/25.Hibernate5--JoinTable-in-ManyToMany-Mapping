@@ -29,9 +29,9 @@ public class Employee {
     @Column(name="salary")
     private Double salary;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="employee_address_table",joinColumns=@JoinColumn(name="employee_id"),inverseJoinColumns=@JoinColumn(name="adress_id"))
-    private List<Address> addressList = new ArrayList<> ();
+    @ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinTable(name = "employee_address_table", joinColumns = @JoinColumn(name="employee_id"), inverseJoinColumns = @JoinColumn(name = "address_id"))
+    private List<Address> addressList = new ArrayList<>();
 
     public Integer getEmployeeId() {
         return employeeId;
@@ -63,15 +63,12 @@ public class Employee {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
-
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
     public void setAddressList(List<Address> addressList) {
         this.addressList = addressList;
     }
-
+    public List<Address> getAddressList() {
+        return addressList;
+    }
     @Override
     public String toString() {
         return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", email=" + email + ", doj="

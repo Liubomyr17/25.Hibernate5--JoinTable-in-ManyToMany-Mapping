@@ -1,6 +1,8 @@
 package com.infotech.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name="address_table")
@@ -20,7 +22,8 @@ public class Address {
     @Column(name = "pin_code")
     private Long pincode;
 
-
+    @ManyToMany(mappedBy="addressList")
+    private Collection<Employee> empList = new ArrayList<>();
 
     public String getStreet() {
         return street;
@@ -47,22 +50,16 @@ public class Address {
         this.pincode = pincode;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public void setEmpList(Collection<Employee> empList) {
+        this.empList = empList;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public Collection<Employee> getEmpList() {
+        return empList;
     }
 
     @Override
     public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", pincode=" + pincode +
-                '}';
+        return "Address [street=" + street + ", city=" + city + ", state=" + state + ", pincode=" + pincode + "]";
     }
 }
